@@ -123,3 +123,13 @@ DOM.next_all = function* (e, selector) {
 DOM.index = (el) => {
   return Array.from(el.parentNode.children).indexOf(el)
 }
+
+// Show an element
+DOM.show = (query) => {
+  DOM.el(query).classList.remove(`hidden`)
+}
+
+// Remove an element
+DOM.hide = (query) => {
+  DOM.el(query).classList.add(`hidden`)
+}
