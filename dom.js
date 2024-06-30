@@ -125,11 +125,19 @@ DOM.index = (el) => {
 }
 
 // Show an element
-DOM.show = (query) => {
-  DOM.el(query).classList.remove(`hidden`)
+DOM.show = (item) => {
+  if (typeof item === `string`) {
+    item = DOM.el(item)
+  }
+
+  item.classList.remove(`hidden`)
 }
 
-// Remove an element
-DOM.hide = (query) => {
-  DOM.el(query).classList.add(`hidden`)
+// Hide an element
+DOM.hide = (item) => {
+  if (typeof item === `string`) {
+    item = DOM.el(item)
+  }
+
+  item.classList.add(`hidden`)
 }
