@@ -154,19 +154,30 @@ DOM.clean_dot = (query) => {
 }
 
 // Show an element
-DOM.show = (item) => {
+DOM.show = (item, num = 1) => {
   if (typeof item === `string`) {
     item = DOM.el(item)
   }
 
-  item.classList.remove(`hidden`)
+  item.classList.remove(DOM.hidden(num))
 }
 
 // Hide an element
-DOM.hide = (item) => {
+DOM.hide = (item, num = 1) => {
   if (typeof item === `string`) {
     item = DOM.el(item)
   }
 
-  item.classList.add(`hidden`)
+  item.classList.add(DOM.hidden(num))
+}
+
+// Get hidden class
+DOM.hidden = (num = 1) => {
+  let cls = `hidden`
+
+  if (num > 1) {
+    cls += `_${num}`
+  }
+
+  return cls
 }
