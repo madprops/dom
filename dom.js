@@ -202,3 +202,8 @@ DOM.element = (el) => {
 DOM.is_hidden = (el, num = 1) => {
   return el.classList.contains(DOM.hidden(num))
 }
+
+// Return the active element
+DOM.active = () => {
+  return document.activeElement
+}
