@@ -1,4 +1,4 @@
-// DOM v2.0.0
+// DOM v2.1.0
 const DOM = {}
 DOM.dataset_obj = {}
 DOM.dataset_id = 0
@@ -206,4 +206,8 @@ DOM.is_hidden = (el, num = 1) => {
 // Return the active element
 DOM.active = () => {
   return document.activeElement
+}
+
+if (typeof window !== `undefined`) {
+  window.DOM = DOM
 }
