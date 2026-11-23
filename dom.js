@@ -1,4 +1,4 @@
-// DOM v2.1.0
+// DOM v3.0.0
 const DOM = {}
 DOM.dataset_obj = {}
 DOM.dataset_id = 0
@@ -112,10 +112,29 @@ DOM.create = (type, classes = ``, id = ``) => {
   return el
 }
 
+// Do add event listener
+DOM.add_event_listener = (el, event, callback, extra) => {
+  let fn = callback
+
+  if (event === `middle_click`) {
+    event = `auxclick`
+
+    fn = (e) => {
+      if (e.button !== 1) {
+        return
+      }
+
+      callback(e)
+    }
+  }
+
+  el.addEventListener(event, fn, extra)
+}
+
 // Add an event listener
 DOM.ev = (el, event, callback, extra) => {
   el = DOM.element(el)
-  el.addEventListener(event, callback, extra)
+  DOM.add_event_listener(el, event, callback, extra)
 }
 
 // Add multiple event listeners
@@ -123,7 +142,7 @@ DOM.evs = (el, events, callback, extra) => {
   el = DOM.element(el)
 
   for (let event of events) {
-    el.addEventListener(event, callback, extra)
+    DOM.add_event_listener(el, event, callback, extra)
   }
 }
 
@@ -189,6 +208,12 @@ DOM.hidden = (num = 1) => {
   return cls
 }
 
+// Check if an element is hidden
+DOM.is_hidden = (el, num = 1) => {
+  el = DOM.element(el)
+  return el.classList.contains(DOM.hidden(num))
+}
+
 // Resolve the element
 DOM.element = (el) => {
   if (typeof el === `string`) {
@@ -196,18 +221,4 @@ DOM.element = (el) => {
   }
 
   return el
-}
-
-// Check if an element is hidden
-DOM.is_hidden = (el, num = 1) => {
-  return el.classList.contains(DOM.hidden(num))
-}
-
-// Return the active element
-DOM.active = () => {
-  return document.activeElement
-}
-
-if (typeof window !== `undefined`) {
-  window.DOM = DOM
 }
